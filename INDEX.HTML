@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171b35">
+<title>AIVORA | Plataforma de aprendizaje</title>
+
+<style>
+:root {
+    --fondo: #f5f6fc;
+    --oscuro: #171b35;
+    --morado: #6558d3;
+    --claro: #ecebff;
+    --texto: #292d45;
+    --gris: #777d96;
+    --blanco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+/* ESTRUCTURA */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 245px;
+    background: var(--oscuro);
+    color: white;
+    padding: 28px 18px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    padding: 10px;
+    margin-bottom: 35px;
+}
+
+.logo span { color: #a99fff; }
+
+.menu-titulo {
+    color: #9296b3;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.menu a {
+    display: block;
+    text-decoration: none;
+    color: #d9daea;
+    padding: 14px;
+    border-radius: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.menu a:hover,
+.menu a.activo {
+    background: #34395f;
+    color: white;
+}
+
+.contenido {
+    margin-left: 245px;
+    width: calc(100% - 245px);
+    padding: 30px 4%;
+}
+
+/* ENCABEZADO */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.topbar h2 { font-size: 24px; }
+
+.usuario {
+    background: white;
+    padding: 11px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+}
+
+/* PORTADA */
+
+.bienvenida {
+    background: linear-gradient(120deg, #25294d, #6558d3);
+    color: white;
+    padding: 45px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.bienvenida span {
+    color: #d5d0ff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.bienvenida h1 {
+    font-size: 36px;
+    margin: 18px 0;
+}
+
+.bienvenida p {
+    line-height: 1.7;
+    color: #e1e0f7;
+    max-width: 600px;
+}
+
+.boton {
+    display: inline-block;
+    background: white;
+    color: #5145b5;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 9px;
+    font-weight: bold;
+    margin-top: 22px;
+    cursor: pointer;
+}
+
+.boton:hover { opacity: .85; }
+
+/* TARJETAS */
+
+.titulo-seccion {
+    margin: 32px 0 20px;
+}
+
+.titulo-seccion h2 { font-size: 22px; }
+
+.titulo-seccion p {
+    color: var(--gris);
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.tarjeta {
+    background: white;
+    border-radius: 15px;
+    padding: 24px;
+    box-shadow: 0 4px 18px #20243a0c;
+}
+
+.icono {
+    font-size: 32px;
+    margin-bottom: 17px;
+}
+
+.tarjeta h3 { margin-bottom: 12px; }
+
+.tarjeta p {
+    color: var(--gris);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.tarjeta button {
+    margin-top: 20px;
+    background: var(--claro);
+    color: var(--morado);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* PROGRESO */
+
+.progreso {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 25px;
+}
+
+.barra {
+    height: 11px;
+    background: #ececf5;
+    border-radius: 20px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.barra-interior {
+    width: 0%;
+    height: 100%;
+    background: var(--morado);
+    border-radius: 20px;
+    transition: .4s;
+}
+
+/* PÁGINAS */
+
+.pagina { display: none; }
+.pagina.activa { display: block; }
+
+/* TUTOR */
+
+.tutor {
+    background: white;
+    padding: 28px;
+    border-radius: 17px;
+}
+
+.tutor textarea {
+    width: 100%;
+    min-height: 130px;
+    border: 1px solid #ddddec;
+    border-radius: 12px;
+    padding: 16px;
+    font-family: Arial;
+    font-size: 15px;
+    resize: vertical;
+    margin-top: 20px;
+}
+
+.tutor button {
+    background: var(--morado);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 14px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.respuesta {
+    background: var(--claro);
+    padding: 18px;
+    border-radius: 10px;
+    margin-top: 20px;
+    line-height: 1.7;
+    display: none;
+}
+
+/* LISTAS */
+
+.lista {
+    background: white;
+    padding: 22px;
+    border-radius: 13px;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.lista button {
+    background: var(--morado);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 14px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* PIE */
+
+footer {
+    text-align: center;
+    color: var(--gris);
+    padding: 35px 10px;
+    font-size: 12px;
+}
+
+/* CELULARES */
+
+@media(max-width: 850px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 12px;
+    }
+
+    .logo {
+        text-align: center;
+        margin: 0 0 10px;
+    }
+
+    .menu-titulo { display: none; }
+
+    .menu {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 3px;
+    }
+
+    .menu a {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .app { display: block; }
+
+    .contenido {
+        margin: 0;
+        width: 100%;
+        padding: 20px 15px;
+    }
+
+    .tarjetas { grid-template-columns: 1fr; }
+
+    .bienvenida { padding: 30px 22px; }
+
+    .bienvenida h1 { font-size: 29px; }
+
+    .topbar h2 { font-size: 20px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- MENÚ LATERAL -->
+
+<aside class="sidebar">
+
+    <div class="logo">AI<span>VORA</span></div>
+
+    <div class="menu-titulo">PLATAFORMA</div>
+
+    <nav class="menu">
+        <a class="activo" onclick="mostrar('inicio',this)">🏠 Inicio</a>
+        <a onclick="mostrar('materias',this)">📚 Mis materias</a>
+        <a onclick="mostrar('tutor',this)">🤖 Tutor inteligente</a>
+        <a onclick="mostrar('programacion',this)">💻 Programación</a>
+        <a onclick="mostrar('progreso',this)">📈 Mi progreso</a>
+    </nav>
+
+    <div class="menu-titulo">CUENTA</div>
+
+    <nav class="menu">
+        <a onclick="mostrar('acerca',this)">ℹ️ Acerca de AIVORA</a>
+    </nav>
+
+</aside>
+
+<!-- CONTENIDO PRINCIPAL -->
+
+<div class="contenido">
+
+    <div class="topbar">
+        <h2 id="tituloPagina">Inicio</h2>
+        <div class="usuario">👤 Estudiante</div>
+    </div>
+
+    <!-- INICIO -->
+
+    <section id="inicio" class="pagina activa">
+
+        <div class="bienvenida">
+            <span>APRENDE · CREA · AVANZA</span>
+            <h1>Tu futuro comienza aprendiendo.</h1>
+            <p>
+                Bienvenido a AIVORA, tu espacio para estudiar,
+                descubrir la tecnología y desarrollar nuevas habilidades.
+            </p>
+            <button class="boton" onclick="mostrar('materias')">
+                Explorar plataforma →
+            </button>
+        </div>
+
+        <div class="titulo-seccion">
+            <h2>Tu espacio de aprendizaje</h2>
+            <p>Herramientas para organizar y mejorar tus estudios.</p>
+        </div>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <div class="icono">📚</div>
+                <h3>Mis materias</h3>
+                <p>Organiza tus asignaturas y actividades académicas.</p>
+                <button onclick="mostrar('materias')">Entrar</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🤖</div>
+                <h3>Tutor inteligente</h3>
+                <p>Un espacio para hacer preguntas y aprender.</p>
+                <button onclick="mostrar('tutor')">Entrar</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">💻</div>
+                <h3>Programación</h3>
+                <p>Descubre cursos y aprende a crear tecnología.</p>
+                <button onclick="mostrar('programacion')">Entrar</button>
+            </div>
+
+        </div>
+
+        <div class="progreso">
+            <h3>📈 Mi aprendizaje</h3>
+            <p>Actividades completadas: <strong id="contador">0</strong></p>
+            <div class="barra">
+                <div class="barra-interior" id="barra"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- MATERIAS -->
+
+    <section id="materias" class="pagina">
+
+        <div class="titulo-seccion">
+            <h2>Mis materias</h2>
+            <p>Organiza tus áreas de estudio.</p>
+        </div>
+
+        <div class="tarjetas">
+
+            <div class="tarjeta">
+                <div class="icono">➗</div>
+                <h3>Matemáticas</h3>
+                <p>Aprende operaciones, álgebra y razonamiento matemático.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🔬</div>
+                <h3>Ciencias</h3>
+                <p>Descubre la naturaleza, la ciencia y sus fenómenos.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">📖</div>
+                <h3>Lenguaje</h3>
+                <p>Mejora tu lectura, escritura y comprensión.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🌎</div>
+                <h3>Estudios sociales</h3>
+                <p>Conoce la historia, la sociedad y el mundo.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🇬🇧</div>
+                <h3>Inglés</h3>
+                <p>Practica vocabulario y expresiones básicas.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">💡</div>
+                <h3>Tecnología</h3>
+                <p>Aprende sobre herramientas y avances tecnológicos.</p>
+                <button onclick="completar()">Marcar actividad</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TUTOR -->
+
+    <section id="tutor" class="pagina">
+
+        <div class="titulo-seccion">
+            <h2>🤖 Tutor inteligente</h2>
+            <p>Un espacio para practicar y resolver tus dudas.</p>
+        </div>
+
+        <div class="tutor">
+
+            <h3>¿Qué te gustaría aprender?</h3>
+
+            <textarea id="pregunta"
+                placeholder="Escribe aquí tu pregunta..."></textarea>
+
+            <button onclick="consultarTutor()">
+                Consultar
+            </button>
+
+            <div class="respuesta" id="respuesta"></div>
+
+            <p style="margin-top:20px;color:#777d96;font-size:13px">
+                Esta versión utiliza respuestas de demostración.
+                La conexión con inteligencia artificial real se añadirá
+                mediante un servicio seguro en una próxima etapa.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- PROGRAMACIÓN -->
+
+    <section id="programacion" class="pagina">
+
+        <div class="titulo-seccion">
+            <h2>💻 Aprende programación</h2>
+            <p>Comienza desde cero y desarrolla habilidades tecnológicas.</p>
+        </div>
+
+        <div class="lista">
+            <h3>🌐 HTML desde cero</h3>
+            <p>Aprende a construir la estructura de páginas web.</p>
+            <button onclick="completar()">Marcar como estudiado</button>
+        </div>
+
+        <div class="lista">
+            <h3>🎨 CSS básico</h3>
+            <p>Descubre cómo diseñar páginas web con colores y estilos.</p>
+            <button onclick="completar()">Marcar como estudiado</button>
+        </div>
+
+        <div class="lista">
+            <h3>⚙️ JavaScript</h3>
+            <p>Aprende a crear funciones e interacciones.</p>
+            <button onclick="completar()">Marcar como estudiado</button>
+        </div>
+
+        <div class="lista">
+            <h3>📱 Creación de aplicaciones</h3>
+            <p>Conoce los fundamentos para desarrollar aplicaciones.</p>
+            <button onclick="completar()">Marcar como estudiado</button>
+        </div>
+
+    </section>
+
+    <!-- PROGRESO -->
+
+    <section id="progreso" class="pagina">
+
+        <div class="titulo-seccion">
+            <h2>📈 Mi progreso</h2>
+            <p>Consulta tus actividades completadas.</p>
+        </div>
+
+        <div class="progreso">
+            <h3>Actividades completadas</h3>
+            <h1 id="totalProgreso" style="font-size:45px;margin:15px 0">0</h1>
+            <div class="barra">
+                <div class="barra-interior" id="barra2"></div>
+            </div>
+            <p style="margin-top:15px;color:#777d96">
+                Sigue aprendiendo y avanzando.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- ACERCA -->
+
+    <section id="acerca" class="pagina">
+
+        <div class="titulo-seccion">
+            <h2>Acerca de AIVORA</h2>
+        </div>
+
+        <div class="lista">
+            <h3>Aprende. Crea. Avanza.</h3>
+            <p>
+                AIVORA es una plataforma educativa y tecnológica
+                diseñada para apoyar el aprendizaje, facilitar la
+                organización académica y acercar la programación
+                a los estudiantes.
+            </p>
+        </div>
+
+    </section>
+
+    <footer>
+        <strong>AIVORA</strong>
+        <p>Aprende, crea y avanza.</p>
+        <p>© 2026 AIVORA</p>
+    </footer>
+
+</div>
+</div>
+
+<script>
+
+// CAMBIAR ENTRE SECCIONES
+
+function mostrar(id, enlace) {
+
+    document.querySelectorAll(".pagina").forEach(pagina => {
+        pagina.classList.remove("activa");
+    });
+
+    document.getElementById(id).classList.add("activa");
+
+    document.querySelectorAll(".menu a").forEach(item => {
+        item.classList.remove("activo");
+    });
+
+    if (enlace) enlace.classList.add("activo");
+
+    const titulos = {
+        inicio: "Inicio",
+        materias: "Mis materias",
+        tutor: "Tutor inteligente",
+        programacion: "Programación",
+        progreso: "Mi progreso",
+        acerca: "Acerca de AIVORA"
+    };
+
+    document.getElementById("tituloPagina").textContent =
+        titulos[id] || "AIVORA";
+
+    window.scrollTo(0, 0);
+}
+
+// GUARDAR PROGRESO
+
+let actividades = Number(localStorage.getItem("aivoraProgreso")) || 0;
+
+function actualizarProgreso() {
+
+    document.getElementById("contador").textContent = actividades;
+    document.getElementById("totalProgreso").textContent = actividades;
+
+    let porcentaje = Math.min(actividades * 10, 100);
+
+    document.getElementById("barra").style.width = porcentaje + "%";
+    document.getElementById("barra2").style.width = porcentaje + "%";
+
+    localStorage.setItem("aivoraProgreso", actividades);
+}
+
+function completar() {
+    actividades++;
+    actualizarProgreso();
+    alert("¡Actividad completada! Sigue aprendiendo.");
+}
+
+actualizarProgreso();
+
+// TUTOR DE DEMOSTRACIÓN
+
+function consultarTutor() {
+
+    const pregunta = document.getElementById("pregunta").value.trim();
+    const respuesta = document.getElementById("respuesta");
+
+    if (!pregunta) {
+        alert("Escribe una pregunta primero.");
+        return;
+    }
+
+    respuesta.style.display = "block";
+
+    respuesta.textContent =
+        "Tu pregunta ha sido registrada: " + pregunta +
+        ". El tutor inteligente con respuestas personalizadas " +
+        todavíaNoDisponible();
+
+}
+
+function todavíaNoDisponible() {
+    return "todavía no está conectado a una inteligencia artificial real.";
+}
+
+</script>
+
+</body>
+</html>
